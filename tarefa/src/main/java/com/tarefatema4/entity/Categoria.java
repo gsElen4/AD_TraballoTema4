@@ -1,9 +1,15 @@
 package com.tarefatema4.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Categoria {
@@ -14,13 +20,15 @@ public class Categoria {
     private String nombre;
     private String descripcion;
 
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Libro> libros = new ArrayList<>();
+
     public Categoria() {
     }
 
-    public Categoria(String descripcion, Long id, String nombre) {
-        this.descripcion = descripcion;
-        this.id = id;
+    public Categoria(String nombre, String descripcion) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public Long getId() {
@@ -47,6 +55,16 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
+    public List<Libro> getLibros() {
+        return libros;
+    }
 
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
 
+    @Override
+    public String toString() {
+        return "Categoria{id=" + id + ", nombre='" + nombre + "', descripcion='" + descripcion + "'}";
+    }
 }

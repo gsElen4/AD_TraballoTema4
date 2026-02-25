@@ -1,11 +1,15 @@
 package com.tarefatema4.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Autor {
@@ -15,6 +19,9 @@ public class Autor {
     private String nombre;
     private String apellidos;
     private Date fechaNacimiento;
+    
+    @ManyToMany(mappedBy = "autores", fetch = FetchType.LAZY)
+    private List<Libro> libros = new ArrayList<>();
 
     public Autor() {
     }
@@ -57,4 +64,16 @@ public class Autor {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor{id=" + id + ", nombre='" + nombre + "', apellidos='" + apellidos + "', fechaNacimiento=" + fechaNacimiento + "}";
+    }
 }

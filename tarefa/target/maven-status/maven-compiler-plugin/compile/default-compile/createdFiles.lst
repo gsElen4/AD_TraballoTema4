@@ -1,1 +1,13 @@
+com\tarefatema4\repository\CategoriaRepository.class
+com\tarefatema4\service\EditorialService.class
 com\tarefatema4\App.class
+com\tarefatema4\service\LibroService.class
+com\tarefatema4\entity\Autor.class
+com\tarefatema4\entity\Editorial.class
+com\tarefatema4\repository\EditorialRepository.class
+com\tarefatema4\entity\Libro.class
+com\tarefatema4\repository\AutorRepository.class
+com\tarefatema4\entity\Categoria.class
+com\tarefatema4\service\AutorService.class
+com\tarefatema4\service\CategoriaService.class
+com\tarefatema4\repository\LibroRepository.class

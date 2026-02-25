@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tarefatema4.entity.Categoria;
 
-public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
+    java.util.List<Categoria> findByNombreContainingIgnoreCase(String nombre);
 }

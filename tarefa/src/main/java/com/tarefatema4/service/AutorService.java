@@ -6,11 +6,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tarefatema4.entity.Autor;
 import com.tarefatema4.repository.AutorRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class AutorService {
@@ -19,18 +18,20 @@ public class AutorService {
     private AutorRepository autorRepository;
 
     // Crear un autor
+    @Transactional
     public Autor crearAutor(String nombre, String apellidos, Date fechaNacimiento) {
         Autor autor = new Autor(nombre, apellidos, fechaNacimiento);
         return autorRepository.save(autor);
     }
 
     // Listar todos los autores
+    @Transactional(readOnly = true)
     public List<Autor> listarTodos() {
         return autorRepository.findAll();
     }
 
     // Obtener un autor por id
-   // @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public Optional<Autor> obtenerPorId(Long id) {
         return autorRepository.findById(id);
     }
@@ -50,6 +51,7 @@ public class AutorService {
     }
 
     // Eliminar un autor
+    @Transactional
     public void eliminarAutor(Long id) {
         autorRepository.deleteById(id);
     }
@@ -59,10 +61,21 @@ public class AutorService {
         return autorRepository.count();
     }
 
-    // Guardar autor (guardar entidad completa, útil tras asignar curso)
-    public Autor guardarAutor(Autor autor) {
-        return autorRepository.save(autor);
+    // Traer todos os autores cos libros cargados
+    @Transactional(readOnly = true)
+    public List<Autor> listarTodosConLibros() {
+        return autorRepository.findAllConLibros();
     }
 
-  
+    // Buscar por nome 
+    @Transactional(readOnly = true)
+    public List<Autor> buscarPorNombre(String nombre) {
+        return autorRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
+    // Buscar autores con fecha de nacimiento entre dúas fechas
+    @Transactional(readOnly = true)
+    public List<Autor> buscarPorRangoFechaNacimiento(Date desde, Date hasta) {
+        return autorRepository.findByFechaNacimientoBetween(desde, hasta);
+    }
 }

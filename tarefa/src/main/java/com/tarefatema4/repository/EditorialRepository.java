@@ -6,4 +6,5 @@ import com.tarefatema4.entity.Editorial;
 
 public interface EditorialRepository extends JpaRepository<Editorial, Long> {
 
+    java.util.List<Editorial> findByNombreContainingIgnoreCase(String nombre);
 }
